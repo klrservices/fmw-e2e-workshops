@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions targetNamespace="http://acme.com/employee/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:tns="http://acme.com/employee/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+             xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:cdm="http://acme.com/xsd">
+  <types>
+    <xsd:schema targetNamespace="http://acme.com/employee/types" elementFormDefault="qualified">
+      <xsd:import schemaLocation="../xsd/CDM.xsd" namespace="http://acme.com/xsd"/>
+    </xsd:schema>
+  </types>
+  <portType name="EmployeeService_pt">
+    <operation name="updateSalary">
+      <input message="tns:UpdateSalaryInputMsg"/>
+    </operation>
+  </portType>
+  <message name="UpdateSalaryInputMsg">
+    <part name="params" element="cdm:salaryChange"/>
+  </message>
+  <binding name="EmployeeService_soap" type="tns:EmployeeService_pt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="updateSalary">
+      <soap:operation style="document" soapAction="http://acme.com/employee//updateSalary"/>
+      <input>
+        <soap:body use="literal" parts="params"/>
+      </input>
+    </operation>
+  </binding>
+  <partnerLinkType name="EmployeeService_PartnerLink" xmlns="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+    <role name="EmployeeServiceProvider">
+      <portType name="tns:EmployeeService_pt"/>
+    </role>
+  </partnerLinkType>
+</definitions>
