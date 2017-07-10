@@ -1,0 +1,14 @@
+<adapter-config name="HRDB" adapter="db" wsdlLocation="HRDB.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="hr" location="eis/DB/hr"/>
+  <endpoint-interaction portType="HRDB_ptt" operation="update">
+    <interaction-spec className="oracle.tip.adapter.db.DBWriteInteractionSpec">
+      <property name="DescriptorName" value="HRDB.Employees"/>
+      <property name="DmlType" value="update"/>
+      <property name="MappingsMetaDataURL" value="HRDB-or-mappings.xml"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="DetectOmissions" value="true"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

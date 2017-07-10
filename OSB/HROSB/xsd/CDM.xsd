@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="windows-1250" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:cdm="http://acme.com/xsd"
+            targetNamespace="http://acme.com/xsd" elementFormDefault="qualified">
+  <xsd:complexType name="SalaryChange">
+    <xsd:sequence>
+      <xsd:element name="empld" type="xsd:long"/>
+      <xsd:element name="newSalary" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="salaryChange" type="cdm:SalaryChange"/>
+  <xsd:complexType name="Employee">
+    <xsd:sequence>
+      <xsd:element name="employeeId" type="xsd:long"/>
+      <xsd:element name="firstName" type="xsd:string"/>
+      <xsd:element name="lastName" type="xsd:string"/>
+      <xsd:element name="jobId" type="xsd:string"/>
+      <xsd:element name="salary" type="xsd:decimal"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="employee" type="cdm:Employee"/>
+  <xsd:simpleType name="ProcessingResult">
+    <xsd:restriction base="xsd:string">
+    <xsd:enumeration value="ACCEPTED"/>
+    <xsd:enumeration value="REJECTED"/>
+    <xsd:enumeration value="ESCALATED"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="DecisionMode">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="AUTOMATIC"/>
+      <xsd:enumeration value="MANUAL"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:complexType name="SalaryChangeProcessing">
+    <xsd:sequence>
+      <xsd:element name="salaryChange" type="cdm:SalaryChange"/>
+      <xsd:element name="employee" type="cdm:Employee"/>
+      <xsd:element name="decisionMode" type="cdm:DecisionMode"/>
+      <xsd:element name="processingResult" type="cdm:ProcessingResult"/>
+      <xsd:element name="comments" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="salaryChangeProcessing" type="cdm:SalaryChangeProcessing"/>
+</xsd:schema>

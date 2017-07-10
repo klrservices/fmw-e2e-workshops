@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="HROSB/wsdl/EmployeeService"/>
+            <con:binding>
+                <con:name>EmployeeService_soap</con:name>
+                <con:namespace>http://acme.com/employee/</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="error" name="error-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7ded">
+            <con:stage id="_StageId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7dec" name="Stage1">
+                <con:context>
+                    <con2:userNsDecl prefix="xsd1" namespace="http://acme.com/xsd"/>
+                </con:context>
+                <con:actions>
+                    <con3:log>
+                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7de9</con2:id>
+                        <con3:logLevel>error</con3:logLevel>
+                        <con3:expr>
+                            <con2:xqueryText>$fault</con2:xqueryText>
+                        </con3:expr>
+                    </con3:log>
+                    <con3:log>
+                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7de6</con2:id>
+                        <con3:logLevel>error</con3:logLevel>
+                        <con3:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con3:expr>
+                    </con3:log>
+                    <con3:report>
+                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7de3</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con3:expr>
+                        <con3:labels>
+                            <con3:key>empId</con3:key>
+                            <con3:varName>body</con3:varName>
+                            <con3:value>
+                                <con2:xpathText>./xsd1:salaryChange/xsd1:empld</con2:xpathText>
+                            </con3:value>
+                        </con3:labels>
+                    </con3:report>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:route-node name="RouteNode1" error-handler="error-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7ded" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                <con:context>
+                    <con2:userNsDecl prefix="xsd1" namespace="http://acme.com/xsd"/>
+                </con:context>
+                <con:actions>
+                    <con1:route>
+                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fff</con2:id>
+                        <con1:service ref="HROSB/HRDB" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>update</con1:operation>
+                        <con1:outboundTransform>
+                            <con3:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fc7</con2:id>
+                                <con3:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="HROSB/xquery/cdm_to_db"/>
+                                        <con2:param name="salaryChange">
+                                            <con2:path>$body/xsd1:salaryChange</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con3:expr>
+                            </con3:replace>
+                        </con1:outboundTransform>
+                        <con1:responseTransform/>
+                    </con1:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+        <con:shared-variables>
+            <con:variable>globalBody</con:variable>
+        </con:shared-variables>
+    </con:router>
+</con:pipelineEntry>

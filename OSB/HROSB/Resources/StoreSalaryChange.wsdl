@@ -1,0 +1,29 @@
+<wsdl:definitions
+     name="StoreSalaryChange"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/StoreSalaryChange"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/StoreSalaryChange"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/StoreSalaryChange"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="StoreSalaryChange_plt" >
+    <plt:role name="StoreSalaryChange_role" >
+      <plt:portType name="tns:StoreSalaryChange_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/StoreSalaryChange" schemaLocation="StoreSalaryChange_table.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="SalaryChangesCollection_msg">
+        <wsdl:part name="SalaryChangesCollection" element="top:SalaryChangesCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="StoreSalaryChange_ptt">
+        <wsdl:operation name="insert">
+            <wsdl:input message="tns:SalaryChangesCollection_msg"/>
+            <wsdl:output message="tns:SalaryChangesCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
