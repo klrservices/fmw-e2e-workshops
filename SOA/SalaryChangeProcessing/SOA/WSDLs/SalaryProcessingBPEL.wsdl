@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SalaryProcessingBPEL"
+             targetNamespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL"
+             xmlns:ns1="http://acme.com/xsd"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://acme.com/xsd" schemaLocation="oramds:/apps/HR/cdm/v1.0/xsd/CDM.xsd" />
+		</schema>
+	</wsdl:types>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="SalaryProcessingBPELRequestMessage">
+		<wsdl:part name="payload" element="ns1:salaryChange" />
+	</wsdl:message>
+
+	<wsdl:message name="SalaryProcessingBPELResponseMessage">
+		<wsdl:part name="payload" element="ns1:salaryChangeProcessing" />
+	</wsdl:message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the SalaryProcessingBPEL BPEL process -->
+	<wsdl:portType name="SalaryProcessingBPEL">
+		<wsdl:operation name="process">
+			<wsdl:input message="client:SalaryProcessingBPELRequestMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- portType implemented by the requester of SalaryProcessingBPEL BPEL process
+	for asynchronous callback purposes
+	-->
+	<wsdl:portType name="SalaryProcessingBPELCallback">
+		<wsdl:operation name="processResponse">
+			<wsdl:input message="client:SalaryProcessingBPELResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the SalaryProcessingBPEL partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="SalaryProcessingBPEL">
+		<plnk:role name="SalaryProcessingBPELProvider" portType="client:SalaryProcessingBPEL"/>
+		<plnk:role name="SalaryProcessingBPELRequester" portType="client:SalaryProcessingBPELCallback"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

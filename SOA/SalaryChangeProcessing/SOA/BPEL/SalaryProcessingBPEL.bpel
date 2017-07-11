@@ -1,0 +1,111 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Jul 11 11:52:04 CEST 2017
+  Author:  Łukasz
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="SalaryProcessingBPEL"
+         targetNamespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:ui="http://xmlns.oracle.com/soa/designer"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://acme.com/employee/"
+         xmlns:ns2="http://acme.com/xsd">
+
+    <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" location="../WSDLs/SalaryProcessingBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="salaryprocessingbpel_client" partnerLinkType="client:SalaryProcessingBPEL" myRole="SalaryProcessingBPELProvider" partnerRole="SalaryProcessingBPELRequester"/>
+        <partnerLink name="EmployeeService" partnerLinkType="ns1:EmployeeService_PartnerLink"
+                     partnerRole="EmployeeServiceProvider"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:SalaryProcessingBPELRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:SalaryProcessingBPELResponseMessage"/>
+    </variables>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in SalaryProcessingBPEL.wsdl) -->
+        <receive name="receiveInput" partnerLink="salaryprocessingbpel_client" portType="client:SalaryProcessingBPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="CopySalaryChange">
+            <copy bpelx:insertMissingToData="yes">
+                <from>$inputVariable.payload</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:salaryChange</to>
+            </copy>
+        </assign>
+        <scope name="GetEmployeeScope">
+            <bpelx:annotation>
+                <bpelx:general>
+                    <bpelx:property name="userLabel">
+                        <![CDATA[Get the employee data]]>
+                    </bpelx:property>
+                    <bpelx:property name="userDescription">
+                        <![CDATA[Invokes the Employee service to fetch the data]]>
+                    </bpelx:property>
+                    <bpelx:property name="userImage">
+                        <![CDATA[customerservice_lg.png]]>
+                    </bpelx:property>
+                </bpelx:general>
+            </bpelx:annotation>
+            <variables>
+                <variable name="getEmployee_Input" messageType="ns1:GetEmployeeInputMsg"/>
+                <variable name="getEmployee_Output" messageType="ns1:GetEmployeeResultMsg"/>
+            </variables>
+            <sequence name="Sequence1">
+                <assign name="InitGetEmployee">
+                    <copy>
+                        <from>$outputVariable.payload/ns2:salaryChange/ns2:empld</from>
+                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$getEmployee_Input.params/ns2:employeeId</to>
+                    </copy>
+                </assign>
+                <invoke name="GetEmployee" partnerLink="EmployeeService" portType="ns1:EmployeeService_pt"
+                        operation="getEmployee" inputVariable="getEmployee_Input" outputVariable="getEmployee_Output"
+                        bpelx:invokeAsDetail="no"/>
+                <assign name="InitEmployeeOutput">
+                    <copy>
+                        <from>$getEmployee_Output.result</from>
+                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:employee</to>
+                    </copy>
+                </assign>
+            </sequence>
+        </scope>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="salaryprocessingbpel_client" portType="client:SalaryProcessingBPELCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>
