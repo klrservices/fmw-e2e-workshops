@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<decisionServices xmlns="http://xmlns.oracle.com/bpel/rules" name="SalaryChangeOracleRules">
+    <ruleEngineProvider provider="Oracle_11.0.0.0.0" name="OracleRulesSDK">
+        <repository type="SCA-Archive">
+            <path>SalaryChangeProcessing/oracle/rules/salarychangeprocessing/SalaryChangeOracleRules.rules</path>
+        </repository>
+    </ruleEngineProvider>
+    <decisionService name="SalaryChangeOracleRules_DecisionService_1" ruleEngineProviderReference="OracleRulesSDK" targetNamespace="http://xmlns.oracle.com/SalaryChangeOracleRules/SalaryChangeOracleRules_DecisionService_1">
+        <catalog>SalaryChangeOracleRules</catalog>
+        <pattern name="CallFunctionStateless">
+            <arguments>
+                <call>salarychangeprocessing.SalaryChangeOracleRules.DecisionService_1</call>
+            </arguments>
+        </pattern>
+        <pattern name="CallFunctionStateful">
+            <arguments>
+                <call>salarychangeprocessing.SalaryChangeOracleRules.DecisionService_1</call>
+            </arguments>
+        </pattern>
+    </decisionService>
+    <schemaInformation>
+        <dictionary fqnPackage="salarychangeprocessing" fqnName="SalaryChangeOracleRules" updateNumber="72">
+            <schemaBrowser>
+                <package>com.acme.xsd</package>
+                <namespace>http://acme.com/xsd</namespace>
+            </schemaBrowser>
+            <schemaImport namespace="http://acme.com/xsd" localPart="CDM.xsd" schemaLocation="oramds:/apps/HR/cdm/v1.0/xsd/CDM.xsd">
+                <import namespace="http://acme.com/xsd" localPart="CDM.xsd" schemaLocation="oramds:/apps/HR/cdm/v1.0/xsd/CDM.xsd"/>
+            </schemaImport>
+        </dictionary>
+    </schemaInformation>
+</decisionServices>

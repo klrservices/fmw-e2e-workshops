@@ -17,8 +17,47 @@
          xmlns:ui="http://xmlns.oracle.com/soa/designer"
          xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
          xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns1="http://acme.com/employee/"
-         xmlns:ns2="http://acme.com/xsd">
-
+         xmlns:ns2="http://acme.com/xsd"
+         xmlns:ns3="http://xmlns.oracle.com/SalaryChangeOracleRules/SalaryChangeOracleRules_DecisionService_1"
+         xmlns:ns4="http://xmlns.oracle.com/bpel"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns5="http://acme.com/faults"
+         xmlns:task="http://xmlns.oracle.com/bpel/workflow/task"
+         xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
+         xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common"
+         xmlns:ns6="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
+         xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow">
+    <bpelx:inlineSubProcess name="UpdateSalarySubprocess">
+        <variables>
+            <variable name="updateSalary" element="ns2:salaryChange"/>
+        </variables>
+        <sequence name="Sequence1">
+            <scope name="UpdateSalaryScope">
+                <variables>
+                    <variable name="updateSalary_Input" messageType="ns1:UpdateSalaryInputMsg"/>
+                </variables>
+                <sequence name="Sequence2">
+                    <assign name="PrepareUpdateSalary">
+                        <copy>
+                            <from expressionLanguage="http://www.w3.org/TR/1999/REC-xpath-19991116">$updateSalary</from>
+                            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$updateSalary_Input.params</to>
+                        </copy>
+                    </assign>
+                    <invoke name="UpdateSalary" bpelx:invokeAsDetail="no" partnerLink="EmployeeService"
+                            portType="ns1:EmployeeService_pt" operation="updateSalary"
+                            inputVariable="updateSalary_Input"/>
+                </sequence>
+            </scope>
+        </sequence>
+    </bpelx:inlineSubProcess>
     <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" location="../WSDLs/SalaryProcessingBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +74,10 @@
         <partnerLink name="salaryprocessingbpel_client" partnerLinkType="client:SalaryProcessingBPEL" myRole="SalaryProcessingBPELProvider" partnerRole="SalaryProcessingBPELRequester"/>
         <partnerLink name="EmployeeService" partnerLinkType="ns1:EmployeeService_PartnerLink"
                      partnerRole="EmployeeServiceProvider"/>
+        <partnerLink name="SalaryChangeOracleRules.SalaryChangeOracleRules_DecisionService_1"
+                     partnerRole="IDecisionService_Role" partnerLinkType="ns3:IDecisionService_PLT"/>
+        <partnerLink name="SalaryChangeApprovalHT.TaskService_1" partnerLinkType="taskservice:TaskService"
+                     partnerRole="TaskService" myRole="TaskServiceCallbackListener"/>
     </partnerLinks>
 
     <!-- 
@@ -49,8 +92,9 @@
 
         <!-- Reference to the message that will be sent back to the requester during callback -->
         <variable name="outputVariable" messageType="client:SalaryProcessingBPELResponseMessage"/>
+        <variable name="SalaryChangeApprovalHT1_globalVariable" messageType="taskservice:taskMessage"/>
     </variables>
-
+    <eventHandlers/>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        ORCHESTRATION LOGIC                                               
@@ -103,6 +147,211 @@
                 </assign>
             </sequence>
         </scope>
+        <scope name="InvokeSalaryChangeRules">
+            <bpelx:annotation>
+                <bpelx:pattern patternName="bpelx:decide"></bpelx:pattern>
+            </bpelx:annotation>
+            <variables>
+                <variable name="rulesIn" element="ns2:salaryChangeProcessing"/>
+                <variable name="rulesOut" element="ns2:salaryChangeProcessing"/>
+                <variable name="dsIn" messageType="ns3:callFunctionStatelessMessage"/>
+                <variable name="dsOut" messageType="ns3:callFunctionStatelessDecisionMessage"/>
+            </variables>
+            <sequence name="Sequence2">
+                <assign name="PrepareRules">
+                    <copy>
+                        <from>$outputVariable.payload</from>
+                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$rulesIn</to>
+                    </copy>
+                </assign>
+                <assign name="Facts_To_Rule_Service">
+                    <copy>
+                        <from>$rulesIn</from>
+                        <to>$dsIn.payload/ns3:parameterList/ns2:salaryChangeProcessing</to>
+                    </copy>
+                </assign>
+                <assign name="BPEL_Header">
+                    <copy>
+                        <from>"SalaryChangeOracleRules_DecisionService_1"</from>
+                        <to variable="dsIn" part="payload"><query>@name</query></to>
+                    </copy>
+                </assign>
+                <invoke name="Invoke" partnerLink="SalaryChangeOracleRules.SalaryChangeOracleRules_DecisionService_1"
+                        portType="ns3:IDecisionService" operation="callFunctionStateless" inputVariable="dsIn"
+                        outputVariable="dsOut"/>
+                <assign name="Rule_Service_To_Facts">
+                    <copy>
+                        <from>$dsOut.payload/ns3:resultList/ns2:salaryChangeProcessing</from>
+                        <to>$rulesOut</to>
+                    </copy>
+                </assign>
+                <assign name="InitOutcome">
+                    <copy>
+                        <from>$rulesOut</from>
+                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload</to>
+                    </copy>
+                </assign>
+            </sequence>
+        </scope>
+        <if name="CheckRulesOutcome">
+            <documentation>
+                <![CDATA[automatic]]>
+            </documentation>
+            <condition>$outputVariable.payload/ns2:decisionMode = "AUTOMATIC"</condition>
+            <if name="CheckDecision">
+                <documentation>
+                    <![CDATA[accepted]]>
+                </documentation>
+                <condition>$outputVariable.payload/ns2:processingResult = "ACCEPTED"</condition>
+                <extensionActivity>
+                    <bpelx:call name="CallUpdateSalary" target="UpdateSalarySubprocess">
+                        <bpelx:param name="updateSalary" copyByValue="yes">$outputVariable.payload/ns2:salaryChange</bpelx:param>
+                    </bpelx:call>
+                </extensionActivity>
+                <elseif>
+                    <documentation>
+                        <![CDATA[rejected]]>
+                    </documentation>
+                    <condition>$outputVariable.payload/ns2:processingResult = "REJECTED"</condition>
+                    <empty name="DoNothing"/>
+                </elseif>
+                <else>
+                    <documentation>
+                        <![CDATA[ingore]]>
+                    </documentation>
+                    <empty name="DoNothing"/>
+                </else>
+            </if>
+            <elseif>
+                <documentation>
+                    <![CDATA[manual]]>
+                </documentation>
+                <condition>$outputVariable.payload/ns2:decisionMode = "MANUAL"</condition>
+                <sequence name="Sequence3">
+                    <scope name="SalaryChangeApprovalHT1" xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+                           wf:key="SalaryChangeApprovalHT1_globalVariable">
+                        <bpelx:annotation>
+                            <bpelx:pattern patternName="bpelx:workflow"></bpelx:pattern>
+                        </bpelx:annotation>
+                        <variables>
+                            <variable name="initiateTaskInput" messageType="taskservice:initiateTaskMessage"/>
+                            <variable name="initiateTaskResponseMessage"
+                                      messageType="taskservice:initiateTaskResponseMessage"/>
+                        </variables>
+                        <sequence>
+                            <assign name="SalaryChangeApprovalHT1_AssignTaskAttributes">
+                                <copy>
+                                    <from>number(3)</from>
+                                    <to variable="initiateTaskInput" part="payload"><query>task:task/task:priority</query></to>
+                                </copy>
+                                <copy>
+                                    <from><literal><payload xmlns="http://xmlns.oracle.com/bpel/workflow/task">
+ <salaryChangeProcessing xmlns="http://xmlns.oracle.com/bpel/workflow/task"/>
+</payload></literal></from>
+                                    <to variable="initiateTaskInput" part="payload"><query>task:task/task:payload</query></to>
+                                </copy>
+                                <copy>
+                                    <from variable="outputVariable" part="payload"/>
+                                    <to variable="initiateTaskInput" part="payload"><query>task:task/task:payload/task:salaryChangeProcessing</query></to>
+                                </copy>
+                            </assign>
+                            <invoke name="initiateTask_SalaryChangeApprovalHT1"
+                                    partnerLink="SalaryChangeApprovalHT.TaskService_1" operation="initiateTask"
+                                    portType="taskservice:TaskService" inputVariable="initiateTaskInput"
+                                    outputVariable="initiateTaskResponseMessage"/>
+                            <receive name="receiveCompletedTask_SalaryChangeApprovalHT1"
+                                     partnerLink="SalaryChangeApprovalHT.TaskService_1"
+                                     portType="taskservice:TaskServiceCallback" operation="onTaskCompleted"
+                                     variable="SalaryChangeApprovalHT1_globalVariable" createInstance="no"/>
+                        </sequence>
+                    </scope>
+                    <if name="CheckWorkflowOutcome">
+                        <documentation>
+                            <![CDATA[Task outcome is APPROVE]]>
+                        </documentation>
+                        <condition>$SalaryChangeApprovalHT1_globalVariable.payload/task:systemAttributes/task:outcome = 'APPROVE'</condition>
+                        <sequence>
+                            <assign name="CopyPayloadFromTask">
+                                <copy>
+                                    <from>$SalaryChangeApprovalHT1_globalVariable.payload/task:payload/task:salaryChangeProcessing</from>
+                                    <to>$outputVariable.payload</to>
+                                </copy>
+                            </assign>
+                            <extensionActivity>
+                                <bpelx:call name="CallUpdateSalary" target="UpdateSalarySubprocess">
+                                    <bpelx:param name="updateSalary" copyByValue="yes">$outputVariable.payload/ns2:salaryChange</bpelx:param>
+                                </bpelx:call>
+                            </extensionActivity>
+                            <assign name="InitAccepted">
+                                <copy bpelx:insertMissingToData="yes">
+                                    <from><literal>ACCEPTED</literal></from>
+                                    <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:processingResult</to>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <elseif>
+                            <documentation>
+                                <![CDATA[Task outcome is REJECT]]>
+                            </documentation>
+                            <condition>$SalaryChangeApprovalHT1_globalVariable.payload/task:systemAttributes/task:outcome = 'REJECT'</condition>
+                            <sequence>
+                                <assign name="CopyPayloadFromTask">
+                                    <copy>
+                                        <from>$SalaryChangeApprovalHT1_globalVariable.payload/task:payload/task:salaryChangeProcessing</from>
+                                        <to>$outputVariable.payload</to>
+                                    </copy>
+                                </assign>
+                                <assign name="InitRejected">
+                                    <copy bpelx:insertMissingToData="yes">
+                                        <from><literal>REJECTED</literal></from>
+                                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:processingResult</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </elseif>
+                        <elseif>
+                            <documentation>
+                                <![CDATA[Task outcome is ESCALATE]]>
+                            </documentation>
+                            <condition>$SalaryChangeApprovalHT1_globalVariable.payload/task:systemAttributes/task:outcome = 'ESCALATE'</condition>
+                            <sequence>
+                                <assign name="CopyPayloadFromTask">
+                                    <copy>
+                                        <from variable="SalaryChangeApprovalHT1_globalVariable" part="payload"><query>task:payload/task:salaryChangeProcessing</query></from>
+                                        <to variable="outputVariable" part="payload"/>
+                                    </copy>
+                                </assign>
+                                <assign name="InitEscalated">
+                                    <copy bpelx:insertMissingToData="yes">
+                                        <from><literal>ESCALATED</literal></from>
+                                        <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$outputVariable.payload/ns2:processingResult</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </elseif>
+                        <else>
+                            <documentation>
+                                <![CDATA[other]]>
+                            </documentation>
+                            <sequence>
+                                <assign name="CopyPayloadFromTask">
+                                    <copy>
+                                        <from variable="SalaryChangeApprovalHT1_globalVariable" part="payload"><query>task:payload/task:salaryChangeProcessing</query></from>
+                                        <to variable="outputVariable" part="payload"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                </sequence>
+            </elseif>
+            <else>
+                <documentation>
+                    <![CDATA[unknown outcome]]>
+                </documentation>
+                <throw name="ThrowUnknownOutome" faultName="ns5:UnknownOutcomeFault"/>
+            </else>
+        </if>
         <!-- 
           Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
         -->

@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<properties>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bc8">SalaryChangeRuleset</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bbf">Salary raise within treshold</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bc0">Salary decrease</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bc2">SALARY_CHANGE_TRESHOLD</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bba">"CEO"</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bc1">SalaryRaiseVS</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bbc">JobVS</entry>
+   <entry key="AG}79adb708:15d31bcd8d0:-7bbd">Salary raise above treshold</entry>
+</properties>

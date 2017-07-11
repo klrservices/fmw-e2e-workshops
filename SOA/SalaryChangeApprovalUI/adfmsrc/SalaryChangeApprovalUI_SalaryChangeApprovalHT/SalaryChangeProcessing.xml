@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="12.2.1.16.48" id="SalaryChangeProcessing"
+          Package="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+          BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChangeProcessing" isJavaBased="false">
+  <Attribute Name="decisionMode" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="processingResult"/>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Decision Mode"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="decisionMode"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="enumeration" Value="[AUTOMATIC, MANUAL]"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="processingResult" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="comments"/>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Processing Result"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="processingResult"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="enumeration" Value="[ACCEPTED, REJECTED, ESCALATED]"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="comments" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Comments"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="comments"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <AccessorAttribute id="salaryChange" IsCollection="true"
+                     BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChange"
+                     CollectionBeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChange_salaryChange_Operations">
+    <Properties>
+      <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+      <Property Name="nextSibling" Value="employee"/>
+      <Property Name="minOccurs" Value="1"/>
+      <Property Name="maxOccurs" Value="1"/>
+      <Property Name="LABEL" Value="Salary Change"/>
+      <Property Name="nillable" Value="false"/>
+      <Property Name="originalName" Value="salaryChange"/>
+      <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+    </Properties>
+  </AccessorAttribute>
+  <AccessorAttribute id="employee" IsCollection="true"
+                     BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.Employee"
+                     CollectionBeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.Employee_employee_Operations">
+    <Properties>
+      <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+      <Property Name="nextSibling" Value="decisionMode"/>
+      <Property Name="minOccurs" Value="1"/>
+      <Property Name="maxOccurs" Value="1"/>
+      <Property Name="LABEL" Value="Employee"/>
+      <Property Name="nillable" Value="false"/>
+      <Property Name="originalName" Value="employee"/>
+      <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+    </Properties>
+  </AccessorAttribute>
+</JavaBean>

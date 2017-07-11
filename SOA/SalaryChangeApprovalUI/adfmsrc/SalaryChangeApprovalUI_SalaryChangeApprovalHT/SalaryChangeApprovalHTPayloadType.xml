@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="12.2.1.16.48" id="SalaryChangeApprovalHTPayloadType"
+          Package="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+          BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChangeApprovalHTPayloadType"
+          isJavaBased="false">
+  <AccessorAttribute id="salaryChangeProcessing" IsCollection="true"
+                     BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChangeProcessing"
+                     CollectionBeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.SalaryChangeProcessing_salaryChangeProcessing_Operations">
+    <Properties>
+      <Property Name="minOccurs" Value="1"/>
+      <Property Name="maxOccurs" Value="1"/>
+      <Property Name="LABEL" Value="Salary Change Processing"/>
+      <Property Name="nillable" Value="false"/>
+      <Property Name="originalName" Value="salaryChangeProcessing"/>
+      <Property Name="targetNamespace" Value="http://xmlns.oracle.com/bpel/workflow/task"/>
+    </Properties>
+  </AccessorAttribute>
+</JavaBean>

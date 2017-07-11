@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JavaBean xmlns="http://xmlns.oracle.com/adfm/beanmodel" version="12.2.1.16.48" id="Employee"
+          Package="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+          BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT.Employee" isJavaBased="false">
+  <Attribute Name="employeeId" IsUpdateable="0" Type="java.lang.Long">
+    <Properties>
+      <CustomProperties>
+        <Property Name="minInclusive" Value="-9223372036854775808"/>
+        <Property Name="originalName" Value="employeeId"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="firstName"/>
+        <Property Name="pattern" Value="[^//.]+"/>
+        <Property Name="fractionDigits" Value="0"/>
+        <Property Name="LABEL" Value="Employee Id"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="maxInclusive" Value="9223372036854775807"/>
+        <Property Name="type" Value="java.lang.Long"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="minOccurs" Value="1"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="firstName" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="lastName"/>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="First Name"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="firstName"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="lastName" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="jobId"/>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Last Name"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="lastName"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="jobId" IsUpdateable="0" Type="java.lang.String">
+    <Properties>
+      <CustomProperties>
+        <Property Name="nextSiblingNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="nextSibling" Value="salary"/>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Job Id"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="jobId"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="type" Value="java.lang.String"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+  <Attribute Name="salary" IsUpdateable="0" Type="java.math.BigDecimal">
+    <Properties>
+      <CustomProperties>
+        <Property Name="minOccurs" Value="1"/>
+        <Property Name="maxOccurs" Value="1"/>
+        <Property Name="LABEL" Value="Salary"/>
+        <Property Name="LeafElement_hint" Value="LeafElement_no_attribute"/>
+        <Property Name="nillable" Value="false"/>
+        <Property Name="originalName" Value="salary"/>
+        <Property Name="targetNamespace" Value="http://acme.com/xsd"/>
+        <Property Name="type" Value="java.lang.BigDecimal"/>
+      </CustomProperties>
+    </Properties>
+  </Attribute>
+</JavaBean>

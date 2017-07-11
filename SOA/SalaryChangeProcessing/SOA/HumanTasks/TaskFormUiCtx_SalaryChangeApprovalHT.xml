@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tas:taskFormUiContext xmlns:tas="http://xmlns.oracle.com/taskformui">
+  <tas:taskFormName>SalaryChangeApprovalHT_Form</tas:taskFormName>
+  <tas:taskFlowName>SalaryChangeApprovalHT_TaskFlow</tas:taskFlowName>
+  <tas:templateType>packaged</tas:templateType>
+  <tas:packagedTemplate>default</tas:packagedTemplate>
+  <tas:header>
+    <tas:headerCustomActions>true</tas:headerCustomActions>
+    <tas:headerSystemActions>true</tas:headerSystemActions>
+    <tas:headerColumnCount>1</tas:headerColumnCount>
+    <tas:headerAttribList>
+      <tas:headerAttrib>acquiredByDisplayName</tas:headerAttrib>
+      <tas:headerAttrib>assignees</tas:headerAttrib>
+      <tas:headerAttrib>createdDate</tas:headerAttrib>
+      <tas:headerAttrib>creator</tas:headerAttrib>
+      <tas:headerAttrib>dueDate</tas:headerAttrib>
+      <tas:headerAttrib>expirationDate</tas:headerAttrib>
+      <tas:headerAttrib>outcome</tas:headerAttrib>
+      <tas:headerAttrib>priority</tas:headerAttrib>
+      <tas:headerAttrib>state</tas:headerAttrib>
+      <tas:headerAttrib>taskNumber</tas:headerAttrib>
+      <tas:headerAttrib>updatedDate</tas:headerAttrib>
+    </tas:headerAttribList>
+  </tas:header>
+  <tas:body>
+    <tas:title>Employee information</tas:title>
+    <tas:rowList>
+      <tas:row>
+        <tas:column>
+          <tas:attrib>salaryChangeProcessing.employee.employeeId</tas:attrib>
+          <tas:attrib>salaryChangeProcessing.employee.firstName</tas:attrib>
+          <tas:attrib>salaryChangeProcessing.employee.lastName</tas:attrib>
+          <tas:attrib>salaryChangeProcessing.employee.jobId</tas:attrib>
+          <tas:attrib>salaryChangeProcessing.employee.salary</tas:attrib>
+          <tas:attrib>salaryChangeProcessing.salaryChange.newSalary</tas:attrib>
+        </tas:column>
+      </tas:row>
+    </tas:rowList>
+  </tas:body>
+  <tas:footer>
+    <tas:comments>true</tas:comments>
+    <tas:attachments>true</tas:attachments>
+    <tas:history>true</tas:history>
+  </tas:footer>
+</tas:taskFormUiContext>

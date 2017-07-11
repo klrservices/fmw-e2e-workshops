@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.16.48" id="DataBindings"
+             SeparateXMLFiles="false" Package="salarychangeapprovalui" ClientType="Generic">
+  <pageMap>
+    <page path="/SalaryChangeApprovalHT_Form.jspx" usageId="salarychangeapprovalui_SalaryChangeApprovalHT_FormPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="salarychangeapprovalui_SalaryChangeApprovalHT_FormPageDef"
+          path="salarychangeapprovalui.pageDefs.SalaryChangeApprovalHT_FormPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <dc id="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+        path="salarychangeapprovalui.SalaryChangeApprovalUI_SalaryChangeApprovalHT"/>
+  </dataControlUsages>
+</Application>

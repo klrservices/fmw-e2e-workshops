@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<DataControlConfigs xmlns="http://xmlns.oracle.com/adfm/configuration" version="12.2.1.16.48" id="DataControls"
+                    Package="salarychangeapprovalui">
+  <AdapterDataControl id="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+                      FactoryClass="oracle.adf.model.adapter.DataControlFactoryImpl"
+                      ImplDef="oracle.bpel.services.datacontrol.XSDDataControlDefinition" SupportsTransactions="true"
+                      SupportsSortCollection="false" SupportsResetState="false" SupportsRangesize="false"
+                      SupportsFindMode="false" SupportsUpdates="false"
+                      Definition="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+                      BeanClass="SalaryChangeApprovalUI_SalaryChangeApprovalHT"
+                      xmlns="http://xmlns.oracle.com/adfm/datacontrol">
+    <Source>
+      <XSDDataControl xmlns="http://xmlns.oracle.com/bpel/workflow/task"
+                      SchemaLocation="file:/C:/Work/Workshops/Moje/SOA_BPM_4_days/projects/working/fmw-e2e-workshops/SOA/SalaryChangeProcessing/SOA/Schemas/SalaryChangeApprovalHTWorkflowTask.xsd"
+                      RootElement="task" rootelementnamespace="http://xmlns.oracle.com/bpel/workflow/task"
+                      taskLoc="../SalaryChangeProcessing/SOA/HumanTasks/SalaryChangeApprovalHT.task"
+                      InitiationTask="false" DocumentStoreConfiguration="false"/>
+    </Source>
+  </AdapterDataControl>
+</DataControlConfigs>
