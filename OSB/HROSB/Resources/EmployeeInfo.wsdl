@@ -1,0 +1,32 @@
+<wsdl:definitions
+     name="EmployeeInfo"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/EmployeeInfo"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/EmployeeInfo"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/EmployeeInfo"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="EmployeeInfo_plt" >
+    <plt:role name="EmployeeInfo_role" >
+      <plt:portType name="tns:EmployeeInfo_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+      <schema xmlns="http://www.w3.org/2001/XMLSchema" >
+        <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/EmployeeInfo" schemaLocation="EmployeeInfo.xsd" />
+      </schema>
+    </wsdl:types>
+    <wsdl:message name="EmployeeInfoInput_msg">
+        <wsdl:part name="EmployeeInfoInput_msg" element="db:EmployeeInfoInput"/>
+    </wsdl:message>
+    <wsdl:message name="EmployeeInfoOutputCollection_msg">
+        <wsdl:part name="EmployeeInfoOutputCollection" element="db:EmployeeInfoOutputCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="EmployeeInfo_ptt">
+        <wsdl:operation name="EmployeeInfo">
+            <wsdl:input message="tns:EmployeeInfoInput_msg"/>
+            <wsdl:output message="tns:EmployeeInfoOutputCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

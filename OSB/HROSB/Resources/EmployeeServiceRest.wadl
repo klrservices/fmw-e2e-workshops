@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<application xmlns:soa="http://www.oracle.com/soa/rest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdm="http://acme.com/xsd" xmlns="http://wadl.dev.java.net/2009/02">
+   <doc title="EmployeeServiceRest">RestService</doc>
+   <grammars>
+      <xsd:schema targetNamespace="http://acme.com/employee/types" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import schemaLocation="../xsd/CDM.xsd" namespace="http://acme.com/xsd"/>
+        </xsd:schema>
+   </grammars>
+   <resources>
+      <resource path="/employee/{empId}">
+         <method name="GET" soa:wsdlOperation="getEmployee">
+            <request soa:paramElement="pns:employeeIdentifier" xmlns:pns="http://acme.com/xsd">
+               <param name="empId" style="template" soa:expression="$msg.params/cdm:employeeId" type="xsd:long"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json" element="cns:employee" xmlns:cns="http://acme.com/xsd"/>
+            </response>
+         </method>
+      </resource>
+   </resources>
+</application>

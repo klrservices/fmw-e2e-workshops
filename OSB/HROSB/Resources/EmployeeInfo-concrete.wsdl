@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/EmployeeInfo" name="EmployeeInfo-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="EmployeeInfo.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/EmployeeInfo"/>
+    <wsdl:binding name="EmployeeInfo_ptt-binding" type="emp:EmployeeInfo_ptt" xmlns:emp="http://xmlns.oracle.com/pcbpel/adapter/db/OSB/HROSB/EmployeeInfo">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="EmployeeInfo">
+            <soap:operation soapAction="EmployeeInfo"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

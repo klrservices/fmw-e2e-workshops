@@ -1,0 +1,13 @@
+<adapter-config name="EmployeeInfo" adapter="db" wsdlLocation="EmployeeInfo.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="hr" location="eis/DB/hr"/>
+  <endpoint-interaction portType="EmployeeInfo_ptt" operation="EmployeeInfo">
+    <interaction-spec className="oracle.tip.adapter.db.DBPureSQLInteractionSpec">
+      <property name="SqlString" value="select employee_id, first_name, last_name, job_id, salary
+from employees
+where employee_id = #empId"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>
