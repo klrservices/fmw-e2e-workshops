@@ -13,6 +13,10 @@
     <operation name="updateSalary">
       <input message="tns:UpdateSalaryInputMsg"/>
     </operation>
+    <operation name="getEmployee">
+      <input message="tns:GetEmployeeInputMsg"/>
+      <output message="tns:GetEmployeeResultMsg"/>
+    </operation>
   </portType>
   <message name="UpdateSalaryInputMsg">
     <part name="params" element="cdm:salaryChange"/>
@@ -25,10 +29,25 @@
         <soap:body use="literal" parts="params"/>
       </input>
     </operation>
+    <operation name="getEmployee">
+      <soap:operation style="document" soapAction="http://acme.com/employee//getEmployee"/>
+      <input>
+        <soap:body use="literal" parts="params"/>
+      </input>
+      <output>
+        <soap:body use="literal" parts="result"/>
+      </output>
+    </operation>
   </binding>
   <partnerLinkType name="EmployeeService_PartnerLink" xmlns="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
     <role name="EmployeeServiceProvider">
       <portType name="tns:EmployeeService_pt"/>
     </role>
   </partnerLinkType>
+  <message name="GetEmployeeInputMsg">
+    <part name="params" element="cdm:employeeIdentifier"/>
+  </message>
+  <message name="GetEmployeeResultMsg">
+    <part name="result" element="cdm:employee"/>
+  </message>
 </definitions>

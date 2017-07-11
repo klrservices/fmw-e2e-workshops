@@ -103,6 +103,7 @@
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
+         <string v="JAVASCRIPT"/>
          <string v="ServiceBusTechnology"/>
          <string v="XML"/>
          <string v="XML_SCHEMA"/>

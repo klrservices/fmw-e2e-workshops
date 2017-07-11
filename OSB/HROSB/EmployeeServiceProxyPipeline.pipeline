@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config">
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con4="http://www.bea.com/wli/sb/typesystem/config" xmlns:con5="http://www.bea.com/wli/sb/stages/routing/config">
     <con:coreEntry>
         <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
             <con:wsdl ref="HROSB/wsdl/EmployeeService"/>
@@ -49,33 +49,136 @@
                 </con:actions>
             </con:stage>
         </con:pipeline>
-        <con:flow>
-            <con:route-node name="RouteNode1" error-handler="error-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7ded" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
-                <con:context>
-                    <con2:userNsDecl prefix="xsd1" namespace="http://acme.com/xsd"/>
-                </con:context>
+        <con:pipeline type="request" name="request-N3f57c7ff.53b1be55.0.15d3091ae72.N7fea">
+            <con:stage id="_StageId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe8" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe9">
+            <con:stage id="_StageId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe7" name="Stage1">
+                <con:context/>
                 <con:actions>
-                    <con1:route>
-                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fff</con2:id>
-                        <con1:service ref="HROSB/HRDB" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
-                        <con1:operation>update</con1:operation>
-                        <con1:outboundTransform>
-                            <con3:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
-                                <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fc7</con2:id>
-                                <con3:expr>
-                                    <con2:xqueryTransform>
-                                        <con2:resource ref="HROSB/xquery/cdm_to_db"/>
-                                        <con2:param name="salaryChange">
-                                            <con2:path>$body/xsd1:salaryChange</con2:path>
-                                        </con2:param>
-                                    </con2:xqueryTransform>
-                                </con3:expr>
-                            </con3:replace>
-                        </con1:outboundTransform>
-                        <con1:responseTransform/>
-                    </con1:route>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe1</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>"Operation not implemented"</con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                    <con2:reply isError="true">
+                        <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe4</con2:id>
+                    </con2:reply>
                 </con:actions>
-            </con:route-node>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:branch-node type="operation" id="_FlowId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fff" name="BranchNode1">
+                <con:context/>
+                <con:branch-table>
+                    <con:branch name="updateSalary">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:route-node name="RouteNode1" error-handler="error-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7ded" xmlns:con1="http://www.bea.com/wli/sb/stages/routing/config">
+                                <con:context>
+                                    <con2:userNsDecl prefix="xsd1" namespace="http://acme.com/xsd"/>
+                                </con:context>
+                                <con:actions>
+                                    <con1:route>
+                                        <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fff</con2:id>
+                                        <con1:service ref="HROSB/HRDB" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                        <con1:operation>update</con1:operation>
+                                        <con1:outboundTransform>
+                                            <con3:replace varName="body" contents-only="true" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+                                                <con2:id>_ActionId-N3f57c7ff.3a8a7347.0.15d2be9f7d9.N7fc7</con2:id>
+                                                <con3:expr>
+                                                    <con2:xqueryTransform>
+                                                        <con2:resource ref="HROSB/xquery/cdm_to_db"/>
+                                                        <con2:param name="salaryChange">
+                                                            <con2:path>$body/xsd1:salaryChange</con2:path>
+                                                        </con2:param>
+                                                    </con2:xqueryTransform>
+                                                </con3:expr>
+                                            </con3:replace>
+                                        </con1:outboundTransform>
+                                        <con1:responseTransform/>
+                                    </con1:route>
+                                </con:actions>
+                            </con:route-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="getEmployee">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:route-node name="RouteNode2">
+                                <con:context>
+                                    <con2:userNsDecl prefix="xsd1" namespace="http://acme.com/xsd"/>
+                                    <con2:userNsDecl prefix="emp" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/EmployeeInfo"/>
+                                    <con4:variable name="empInfoBody" path="$body" asChild="false">
+                                        <con4:schema ref="HROSB/Resources/EmployeeInfo" element="EmployeeInfoOutputCollection"/>
+                                    </con4:variable>
+                                </con:context>
+                                <con:actions>
+                                    <con5:route>
+                                        <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7ff2</con2:id>
+                                        <con5:service ref="HROSB/EmployeeInfo" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                        <con5:operation>EmployeeInfo</con5:operation>
+                                        <con5:outboundTransform>
+                                            <con1:replace varName="body" contents-only="true">
+                                                <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fef</con2:id>
+                                                <con1:expr>
+                                                    <con2:xqueryTransform>
+                                                        <con2:resource ref="HROSB/xquery/cdm_to_empInfo"/>
+                                                        <con2:param name="empIdentifier">
+                                                            <con2:path>$body/xsd1:employeeIdentifier</con2:path>
+                                                        </con2:param>
+                                                    </con2:xqueryTransform>
+                                                </con1:expr>
+                                            </con1:replace>
+                                            <con3:log>
+                                                <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fde</con2:id>
+                                                <con3:logLevel>error</con3:logLevel>
+                                                <con3:expr>
+                                                    <con2:xqueryText>$body</con2:xqueryText>
+                                                </con3:expr>
+                                            </con3:log>
+                                        </con5:outboundTransform>
+                                        <con5:responseTransform>
+                                            <con3:log>
+                                                <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fdb</con2:id>
+                                                <con3:logLevel>error</con3:logLevel>
+                                                <con3:expr>
+                                                    <con2:xqueryText>$body</con2:xqueryText>
+                                                </con3:expr>
+                                            </con3:log>
+                                            <con1:replace varName="body" contents-only="true">
+                                                <con2:id>_ActionId-N3f57c7ff.53b1be55.0.15d3091ae72.N7fec</con2:id>
+                                                <con1:expr>
+                                                    <con2:xqueryTransform>
+                                                        <con2:resource ref="HROSB/xquery/empInfo_to_cdm"/>
+                                                        <con2:param name="empInfo">
+                                                            <con2:path>$body/emp:EmployeeInfoOutputCollection</con2:path>
+                                                        </con2:param>
+                                                    </con2:xqueryTransform>
+                                                </con1:expr>
+                                            </con1:replace>
+                                        </con5:responseTransform>
+                                    </con5:route>
+                                </con:actions>
+                            </con:route-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:default-branch>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair Node1">
+                                <con:request>request-N3f57c7ff.53b1be55.0.15d3091ae72.N7fea</con:request>
+                                <con:response>response-N3f57c7ff.53b1be55.0.15d3091ae72.N7fe9</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:default-branch>
+                </con:branch-table>
+            </con:branch-node>
         </con:flow>
         <con:shared-variables>
             <con:variable>globalBody</con:variable>
