@@ -94,7 +94,7 @@
         <variable name="outputVariable" messageType="client:SalaryProcessingBPELResponseMessage"/>
         <variable name="SalaryChangeApprovalHT1_globalVariable" messageType="taskservice:taskMessage"/>
     </variables>
-    <eventHandlers/>
+    
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
        ORCHESTRATION LOGIC                                               

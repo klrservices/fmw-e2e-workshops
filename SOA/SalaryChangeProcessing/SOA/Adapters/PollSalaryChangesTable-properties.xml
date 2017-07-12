@@ -1,0 +1,35 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="SALARY_CHANGES.EMPLOYEE_ID:db_column_precision">38</entry>
+   <entry key="SALARY_CHANGES.ID:db_column_scale">0</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STAMP:db_column_scale">6</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STATUS:db_column_size">20</entry>
+   <entry key="SALARY_CHANGES.EMPLOYEE_ID:db_column_scale">0</entry>
+   <entry key="SALARY_CHANGES.OLD_SALARY:db_column_type">NUMBER</entry>
+   <entry key="SALARY_CHANGES.OLD_SALARY:db_column_precision">38</entry>
+   <entry key="SALARY_CHANGES.NEW_SALARY:db_column_precision">38</entry>
+   <entry key="SALARY_CHANGES.ID:db_column_not_null">true</entry>
+   <entry key="SALARY_CHANGES.NEW_SALARY:db_column_scale">0</entry>
+   <entry key="SALARY_CHANGES:db_table_type">TABLE</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="SALARY_CHANGES.NEW_SALARY:db_column_type">NUMBER</entry>
+   <entry key="SALARY_CHANGES.EMPLOYEE_ID:db_column_type">NUMBER</entry>
+   <entry key="SALARY_CHANGES.NEW_SALARY:db_column_not_null">false</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STAMP:db_column_not_null">false</entry>
+   <entry key="root_descriptor_alias">SALARY_CHANGES</entry>
+   <entry key="SALARY_CHANGES:db_column_5">CHANGE_STATUS</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STAMP:db_column_type">TIMESTAMP</entry>
+   <entry key="SALARY_CHANGES:db_column_4">CHANGE_STAMP</entry>
+   <entry key="SALARY_CHANGES:db_column_3">NEW_SALARY</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STATUS:db_column_not_null">true</entry>
+   <entry key="SALARY_CHANGES.OLD_SALARY:db_column_not_null">false</entry>
+   <entry key="SALARY_CHANGES:db_column_2">OLD_SALARY</entry>
+   <entry key="SALARY_CHANGES:db_column_1">EMPLOYEE_ID</entry>
+   <entry key="SALARY_CHANGES:db_column_0">ID</entry>
+   <entry key="SALARY_CHANGES.OLD_SALARY:db_column_scale">0</entry>
+   <entry key="SALARY_CHANGES.EMPLOYEE_ID:db_column_not_null">true</entry>
+   <entry key="SALARY_CHANGES.ID:db_column_precision">38</entry>
+   <entry key="SALARY_CHANGES.CHANGE_STATUS:db_column_type">VARCHAR2</entry>
+   <entry key="SALARY_CHANGES.ID:db_column_type">NUMBER</entry>
+</properties>

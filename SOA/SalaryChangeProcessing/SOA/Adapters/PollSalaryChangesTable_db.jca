@@ -1,0 +1,21 @@
+<adapter-config name="PollSalaryChangesTable" adapter="db" wsdlLocation="../WSDLs/PollSalaryChangesTable.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="hr" location="eis/DB/hr"/>
+  <endpoint-activation portType="PollSalaryChangesTable_ptt" operation="receive">
+    <activation-spec className="oracle.tip.adapter.db.DBActivationSpec">
+      <property name="DescriptorName" value="PollSalaryChangesTable.SalaryChanges"/>
+      <property name="QueryName" value="PollSalaryChangesTableSelect"/>
+      <property name="MappingsMetaDataURL" value="PollSalaryChangesTable-or-mappings.xml"/>
+      <property name="PollingStrategy" value="LogicalDeletePollingStrategy"/>
+      <property name="MarkReadColumn" value="CHANGE_STATUS"/>
+      <property name="MarkReadValue" value="PENDING"/>
+      <property name="MarkUnreadValue" value="INITIATED"/>
+      <property name="PollingInterval" value="5"/>
+      <property name="MaxRaiseSize" value="1"/>
+      <property name="MaxTransactionSize" value="1"/>
+      <property name="NumberOfThreads" value="1"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+    </activation-spec>
+  </endpoint-activation>
+
+</adapter-config>
