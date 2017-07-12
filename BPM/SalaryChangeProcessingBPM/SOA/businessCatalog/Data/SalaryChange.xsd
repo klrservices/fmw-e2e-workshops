@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?bpmo version="12.1.3" build="00.00" fullName="Data.SalaryChange" modifiers="[public]"?>
+<!--########################################################################################-->
+<!--####                                                                                ####-->
+<!--####          THIS IS AN AUTO GENERATED FILE. PLEASE DO NOT MANUALLY MODIFY         ####-->
+<!--#### CHANGES TO THIS FILE MAY PRODUCE UNEXPECTED BEHAVIOR AND WOULD BE OVERWRITTEN  ####-->
+<!--####                                                                                ####-->
+<!--########################################################################################-->
+<xs:schema targetNamespace="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange" elementFormDefault="qualified" xmlns="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange"  xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:bpmo="http://xmlns.oracle.com/bpm/bpmobject/" >
+    <xs:complexType name="SalaryChangeType">
+        <xs:sequence>
+            <xs:element name="employeeId" nillable="true" type="xs:int"/>
+            <xs:element name="newSalary" nillable="true" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="SalaryChange" type="SalaryChangeType"/>
+</xs:schema>
