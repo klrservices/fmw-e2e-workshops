@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sensors xmlns="http://xmlns.oracle.com/bpel/sensor">
+    <sensor sensorName="empid" kind="service" target="undefined" filter="" xmlns:cdm="http://acme.com/xsd">
+        <serviceConfig service="SalaryChangeProcessingService" expression="number($in.params/cdm:salaryChange/cdm:empld)" operation="initiateSalaryChangeProcessing" outputDataType="string" outputNamespace="http://www.w3.org/2001/XMLSchema"/>
+    </sensor>
+    <sensor sensorName="empid" kind="service" target="undefined" filter="" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/PollSalaryChangesTable">
+        <serviceConfig service="PollSalaryChangesTable" expression="number($in.SalaryChangesCollection/top:SalaryChangesCollection/top:SalaryChanges/top:employeeId)" operation="receive" outputDataType="string" outputNamespace="http://www.w3.org/2001/XMLSchema"/>
+    </sensor>
+</sensors>

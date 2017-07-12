@@ -48,6 +48,8 @@
   </service>
   <property name="productVersion" type="xs:string" many="false">12.2.1.2.0.161003</property>
   <property name="compositeID" type="xs:string" many="false">ceaea2cb-b71d-46bc-88df-1580b743947e</property>
+  <property name="oracle.composite.faultPolicyFile" type="xs:string" many="false">fault-policies.xml</property>
+  <property name="oracle.composite.faultBindingFile" type="xs:string" many="false">fault-bindings.xml</property>
   <component name="SalaryProcessingBPEL" version="2.0">
     <implementation.bpel src="BPEL/SalaryProcessingBPEL.bpel"/>
     <componentType>
