@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<actions targetNamespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" xmlns="http://xmlns.oracle.com/bpel/sensor" xmlns:tns="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" xmlns:pc="http://xmlns.oracle.com/bpel/sensor">
+   <action name="EMSensorAction" publishName="" publishType="BpelReportsSchema" enabled="true" filter="" publishTarget="">
+      <sensorName>ReceiveActivitySensor</sensorName>
+   </action>
+   <action name="AuditJMSSensorAction" publishName="" publishType="JMSQueue" enabled="true" filter="" publishTarget="/jms/queue/AuditQueue">
+      <property name="JMSConnectionFactory">/jms/cf/AuditConnectionFactory</property>
+      <sensorName>ReceiveActivitySensor</sensorName>
+   </action>
+</actions>
