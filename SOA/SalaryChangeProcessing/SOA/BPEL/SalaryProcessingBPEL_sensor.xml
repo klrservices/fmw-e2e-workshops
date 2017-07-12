@@ -1,7 +1,7 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <sensors targetNamespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" xmlns="http://xmlns.oracle.com/bpel/sensor" xmlns:tns="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" xmlns:pc="http://xmlns.oracle.com/bpel/sensor" xmlns:ns2="http://acme.com/xsd">
    <sensor sensorName="ReceiveActivitySensor" classname="oracle.tip.pc.services.reports.dca.agents.BpelActivitySensorAgent" kind="activity" target="receiveInput">
-      <activityConfig evalTime="activation">
+      <activityConfig evalTime="completion">
          <variable outputDataType="SalaryChange" outputNamespace="http://acme.com/xsd" target="$inputVariable/payload/ns2:salaryChange"/>
       </activityConfig>
    </sensor>
