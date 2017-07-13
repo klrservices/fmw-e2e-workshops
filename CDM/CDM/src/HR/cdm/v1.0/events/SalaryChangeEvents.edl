@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<definitions xmlns="http://schemas.oracle.com/events/edl" targetNamespace="http://xmlns.oracle.com/CDM/CDM/SalaryChangeEvents">
+   <schema-import location="../xsd/CDM.xsd" namespace="http://acme.com/xsd"/>
+   <event-definition name="SalaryChangeAccepted">
+      <content xmlns:ns1="http://acme.com/xsd" element="ns1:salaryChange"/>
+   </event-definition>
+</definitions>
