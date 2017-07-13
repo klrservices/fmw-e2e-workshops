@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--########################################################################################-->
+<!--####                                                                                ####-->
+<!--####          THIS IS AN AUTO GENERATED FILE. PLEASE DO NOT MANUALLY MODIFY         ####-->
+<!--#### CHANGES TO THIS FILE MAY PRODUCE UNEXPECTED BEHAVIOR AND WOULD BE OVERWRITTEN  ####-->
+<!--####                                                                                ####-->
+<!--########################################################################################-->
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcessingBPM" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"  xmlns:tns2="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess"  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"  xmlns:tns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcessingBPM"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" >
+    <vprop:property name="employeeId" type="xsd:int"/>
+    <vprop:propertyAlias messageType="tns2:cancel" propertyName="tns:employeeId" part="parameters">
+        <vprop:query xmlns:ns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess" xmlns:ns1="http://acme.com/xsd">
+            /ns:cancel/ns1:salaryChange/ns1:empld
+        </vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias messageType="tns2:start" propertyName="tns:employeeId" part="parameters">
+        <vprop:query xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcessingBPM" xmlns:ns1="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange" xmlns:tns2="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
+            /ns:start/ns1:SalaryChange/ns1:employeeId
+        </vprop:query>
+    </vprop:propertyAlias>
+</wsdl:definitions>

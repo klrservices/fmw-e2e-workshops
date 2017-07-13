@@ -5,27 +5,38 @@
 <!--#### CHANGES TO THIS FILE MAY PRODUCE UNEXPECTED BEHAVIOR AND WOULD BE OVERWRITTEN  ####-->
 <!--####                                                                                ####-->
 <!--########################################################################################-->
-<wsdl:definitions targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess" xmlns:tns6="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange"  xmlns:tns7="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChangeProcessing"  xmlns:tns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess"  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"  xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" >
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess" xmlns:tns7="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange"  xmlns:tns8="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChangeProcessing"  xmlns:tns6="http://acme.com/xsd"  xmlns:tns="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess"  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"  xmlns:xsd="http://www.w3.org/2001/XMLSchema"  xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"  xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" >
     <wsdl:types>
         <xsd:schema targetNamespace="http://xmlns.oracle.com/bpmn/bpmnProcess/SalaryChangeProcess">
+            <xsd:import namespace="http://acme.com/xsd" schemaLocation="oramds:/apps/HR/cdm/v1.0/xsd/CDM.xsd"/>
             <xsd:import namespace="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChange" schemaLocation="../businessCatalog/Data/SalaryChange.xsd"/>
             <xsd:import namespace="http://xmlns.oracle.com/bpm/bpmobject/Data/SalaryChangeProcessing" schemaLocation="../businessCatalog/Data/SalaryChangeProcessing.xsd"/>
+            <xsd:element name="cancel">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element ref="tns6:salaryChange"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
             <xsd:element name="start">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element ref="tns6:SalaryChange"/>
+                        <xsd:element ref="tns7:SalaryChange"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="endResponse">
                 <xsd:complexType>
                     <xsd:sequence>
-                        <xsd:element ref="tns7:SalaryChangeProcessing"/>
+                        <xsd:element ref="tns8:SalaryChangeProcessing"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
         </xsd:schema>
     </wsdl:types>
+    <wsdl:message name="cancel">
+        <wsdl:part name="parameters" element="tns:cancel"/>
+    </wsdl:message>
     <wsdl:message name="start">
         <wsdl:part name="parameters" element="tns:start"/>
     </wsdl:message>
@@ -33,6 +44,9 @@
         <wsdl:part name="parameters" element="tns:endResponse"/>
     </wsdl:message>
     <wsdl:portType name="SalaryChangeProcessPortType">
+        <wsdl:operation name="cancel">
+            <wsdl:input message="tns:cancel"/>
+        </wsdl:operation>
         <wsdl:operation name="start">
             <wsdl:input message="tns:start"/>
         </wsdl:operation>

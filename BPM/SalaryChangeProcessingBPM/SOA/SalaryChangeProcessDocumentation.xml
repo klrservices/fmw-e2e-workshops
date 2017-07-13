@@ -4,22 +4,6 @@
    <component name="SalaryChangeProcess">
       <topicDocumentations>
          <topicDocumentation name="SalaryChangeProcess"/>
-         <topicDocumentation name="EVT19826932599758">
-            <labels>
-               <label locale="en">Start</label>
-            </labels>
-            <descriptions>
-               <description locale="en"></description>
-            </descriptions>
-         </topicDocumentation>
-         <topicDocumentation name="EVT19826932599818">
-            <labels>
-               <label locale="en">End</label>
-            </labels>
-            <descriptions>
-               <description locale="en"></description>
-            </descriptions>
-         </topicDocumentation>
          <topicDocumentation name="ACT19827068255440">
             <labels>
                <label locale="en">Legacy Salary Change Subprocess</label>
@@ -27,16 +11,6 @@
             <descriptions>
                <description locale="en"></description>
             </descriptions>
-         </topicDocumentation>
-         <topicDocumentation name="EVT19827068459752">
-            <labels>
-               <label locale="en">Start</label>
-            </labels>
-         </topicDocumentation>
-         <topicDocumentation name="EVT19827068459815">
-            <labels>
-               <label locale="en">End</label>
-            </labels>
          </topicDocumentation>
          <topicDocumentation name="ACT1982707392137">
             <labels>
@@ -54,28 +28,22 @@
                <description locale="en"></description>
             </descriptions>
          </topicDocumentation>
+         <topicDocumentation name="EVT19827068459752">
+            <labels>
+               <label locale="en">Start</label>
+            </labels>
+         </topicDocumentation>
+         <topicDocumentation name="EVT19827068459815">
+            <labels>
+               <label locale="en">End</label>
+            </labels>
+         </topicDocumentation>
          <topicDocumentation name="sf19827068459857"/>
          <topicDocumentation name="sf19827078624519"/>
          <topicDocumentation name="sf19827094766848"/>
-         <topicDocumentation name="GTW19827106634787">
-            <labels>
-               <label locale="en">Check result</label>
-            </labels>
-            <descriptions>
-               <description locale="en"></description>
-            </descriptions>
-         </topicDocumentation>
          <topicDocumentation name="ACT19827119608232">
             <labels>
                <label locale="en">HR Approval</label>
-            </labels>
-            <descriptions>
-               <description locale="en"></description>
-            </descriptions>
-         </topicDocumentation>
-         <topicDocumentation name="GTW19827144503422">
-            <labels>
-               <label locale="en">Check HR approval</label>
             </labels>
             <descriptions>
                <description locale="en"></description>
@@ -89,9 +57,98 @@
                <description locale="en"></description>
             </descriptions>
          </topicDocumentation>
+         <topicDocumentation name="ACT1982756865413">
+            <labels>
+               <label locale="en">Notify employee</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="ACT19827770612812">
+            <labels>
+               <label locale="en">Subprocess</label>
+            </labels>
+         </topicDocumentation>
+         <topicDocumentation name="EVT19827770809555">
+            <labels>
+               <label locale="en">Cancel</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="EVT19827770809562">
+            <labels>
+               <label locale="en">Terminate process</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="ACT19832908396293">
+            <labels>
+               <label locale="en">Withdraw HR Approval Task</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="ACT19832928155462">
+            <labels>
+               <label locale="en">Notify HR</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="sf19827770809537"/>
+         <topicDocumentation name="sf19832913331844"/>
+         <topicDocumentation name="sf1983292899649"/>
+         <topicDocumentation name="EVT19826932599758">
+            <labels>
+               <label locale="en">Start</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="EVT19826932599818">
+            <labels>
+               <label locale="en">End</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="GTW19827528982686">
+            <labels>
+               <label locale="en">ParallelGateway</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
+         <topicDocumentation name="GTW1982752948289">
+            <labels>
+               <label locale="en">ParallelGateway</label>
+            </labels>
+         </topicDocumentation>
+         <topicDocumentation name="GTW1982754580040">
+            <labels>
+               <label locale="en">ExclusiveGateway</label>
+            </labels>
+            <descriptions>
+               <description locale="en"></description>
+            </descriptions>
+         </topicDocumentation>
          <topicDocumentation name="sf19826932600858"/>
-         <topicDocumentation name="sf19827068460063"/>
-         <topicDocumentation name="sf19827107755586">
+         <topicDocumentation name="sf19827529484887"/>
+         <topicDocumentation name="sf19827534523329"/>
+         <topicDocumentation name="sf1982753550129"/>
+         <topicDocumentation name="sf19827538765548"/>
+         <topicDocumentation name="sf1982754195161"/>
+         <topicDocumentation name="sf19827546199375">
             <labels>
                <label locale="en"></label>
             </labels>
@@ -99,9 +156,8 @@
                <description locale="en"></description>
             </descriptions>
          </topicDocumentation>
-         <topicDocumentation name="sf19827115576785"/>
-         <topicDocumentation name="sf19827122309695"/>
-         <topicDocumentation name="sf19827145570076">
+         <topicDocumentation name="sf19827547274612"/>
+         <topicDocumentation name="sf19827549086658">
             <labels>
                <label locale="en"></label>
             </labels>
@@ -109,15 +165,8 @@
                <description locale="en"></description>
             </descriptions>
          </topicDocumentation>
-         <topicDocumentation name="sf19827152049745"/>
-         <topicDocumentation name="sf19827152862646">
-            <labels>
-               <label locale="en"></label>
-            </labels>
-            <descriptions>
-               <description locale="en"></description>
-            </descriptions>
-         </topicDocumentation>
+         <topicDocumentation name="sf19827571770894"/>
+         <topicDocumentation name="sf19827575531920"/>
       </topicDocumentations>
    </component>
 </processDocumentation>

@@ -34,7 +34,8 @@
          xmlns:taskservice="http://xmlns.oracle.com/bpel/workflow/taskService"
          xmlns:wfcommon="http://xmlns.oracle.com/bpel/workflow/common"
          xmlns:ns6="http://xmlns.oracle.com/bpel/workflow/TaskEvidenceService"
-         xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow">
+         xmlns:wf="http://schemas.oracle.com/bpel/extensions/workflow"
+         xmlns:ns7="http://xmlns.oracle.com/CDM/CDM/SalaryChangeEvents">
     <bpelx:inlineSubProcess name="UpdateSalarySubprocess">
         <variables>
             <variable name="updateSalary" element="ns2:salaryChange"/>
@@ -43,6 +44,7 @@
             <scope name="UpdateSalaryScope">
                 <variables>
                     <variable name="updateSalary_Input" messageType="ns1:UpdateSalaryInputMsg"/>
+                    <variable name="publishSalaryChangeAccepted_Input" element="ns2:salaryChange"/>
                 </variables>
                 <sequence name="Sequence2">
                     <assign name="PrepareUpdateSalary">
@@ -54,10 +56,21 @@
                     <invoke name="UpdateSalary" bpelx:invokeAsDetail="no" partnerLink="EmployeeService"
                             portType="ns1:EmployeeService_pt" operation="updateSalary"
                             inputVariable="updateSalary_Input"/>
+                    <assign name="PreparePublish">
+                        <copy>
+                            <from>$updateSalary</from>
+                            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$publishSalaryChangeAccepted_Input</to>
+                        </copy>
+                    </assign>
+                    <invoke name="PublishSalaryChangeAccepted"
+                            bpelx:eventName="ns7:SalaryChangeAccepted" bpelx:invokeAsDetail="no"
+                            inputVariable="publishSalaryChangeAccepted_Input"/>
                 </sequence>
             </scope>
         </sequence>
     </bpelx:inlineSubProcess>
+    <import namespace="http://acme.com/xsd" location="oramds:/apps/HR/cdm/v1.0/xsd/CDM.xsd"
+            importType="http://www.w3.org/2001/XMLSchema"/>
     <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/SOA/SalaryChangeProcessing/SalaryProcessingBPEL" location="../WSDLs/SalaryProcessingBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
     <!-- 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
