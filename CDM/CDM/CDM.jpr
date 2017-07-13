@@ -101,10 +101,7 @@
                   <hash>
                      <list n="contributors">
                         <hash>
-                           <value n="type" v="2"/>
-                        </hash>
-                        <hash>
-                           <value n="type" v="7"/>
+                           <value n="type" v="6"/>
                         </hash>
                      </list>
                      <value n="displayName" v="Project Output"/>
